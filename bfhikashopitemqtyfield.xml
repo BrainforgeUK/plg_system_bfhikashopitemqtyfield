@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.5" method="upgrade" group="system">
+	<name>System - Hikashop Item Custom Field Quantity Handler Plugin by BrainforgeUK</name>
+	<creationDate>July 2020</creationDate>
+	<version>1.0.0</version>
+	<author>Jonathan Brain</author>
+	<authorEmail>brainforge.uk@btinternet.com</authorEmail>
+	<authorUrl>https://www.brainforge.co.uk</authorUrl>
+	<copyright>Copyright (C) 2020 Jonathan Brain - All rights reserved.
+	</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>PLG_SYSTEM_BFHIKASHOPITEMQTYFIELD_XML_DESCRIPTION</description>
+
+	<files>
+		<filename plugin="bfhikashopitemqtyfield">bfhikashopitemqtyfield.php</filename>
+		<folder>language</folder>
+	</files>
+
+	<config>
+		<fields
+				name="params"
+		>
+			<fieldset
+					name="basic"
+			>
+				<field
+						name="fieldnamekeys"
+						type="sql"
+						sql_select="field_namekey"
+						sql_from="#__hikashop_field"
+						sql_where="field_table='item' AND field_type IN ('text', 'radio', 'singledropdown')"
+						sql_order="field_namekey"
+						key_field="field_namekey"
+						value_field="field_namekey"
+						required="true"
+						multiple="true"
+						default=""
+						label="PLG_SYSTEM_BFHIKASHOPITEMQTYFIELD_FIELDNAMEKEYS_LABEL"
+						description="PLG_SYSTEM_BFHIKASHOPITEMQTYFIELD_FIELDNAMEKEYS_DESC"
+				>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+
+
+	<updateservers>
+		<server type="extension" priority="1" name="PLG_BF_MANUAL">
+			https://brainforge.co.uk/component/bfupdater?element=plg_system_bfhikashopitemqtyfield.xml
+		</server>
+	</updateservers>
+</extension>
