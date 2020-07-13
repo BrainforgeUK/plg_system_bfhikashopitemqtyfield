@@ -20,10 +20,8 @@ class Plgsystembfhikashopitemqtyfield extends CMSPlugin
 		Plgsystembfhikashopitemqtyfield::$fieldnamekeys = $this->params->get('fieldnamekeys');
 	}
 
-	public static function getItemQuantity($product)
+	public static function getItemQuantity($product, $quantity)
 	{
-		$quantity = @$product->cart_product_quantity;
-
 		if (!empty(Plgsystembfhikashopitemqtyfield::$fieldnamekeys))
 		{
 			foreach(Plgsystembfhikashopitemqtyfield::$fieldnamekeys as $fieldnamekey)
@@ -46,13 +44,13 @@ if (!function_exists('hikashop_product_price_for_quantity_in_cart') &&
 	{
 		$currencyClass = hikashop_get('class.currency');
 		$currencyClass->quantityPrices($product->prices,
-			Plgsystembfhikashopitemqtyfield::getItemQuantity($product),
+			Plgsystembfhikashopitemqtyfield::getItemQuantity($product, @$product->cart_product_quantity),
 			$product->cart_product_total_quantity);
 	}
 
 	function hikashop_product_price_for_quantity_in_order(&$product)
 	{
-		$quantity = Plgsystembfhikashopitemqtyfield::getItemQuantity($product);
+		$quantity = Plgsystembfhikashopitemqtyfield::getItemQuantity($product, @$product->order_product_quantity);
 		$product->order_product_total_price_no_vat = $product->order_product_price * $quantity;
 		$product->order_product_total_price = ($product->order_product_price + $product->order_product_tax) * $quantity;
 	}
