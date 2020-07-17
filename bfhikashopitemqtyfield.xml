@@ -2,7 +2,7 @@
 <extension type="plugin" version="3.5" method="upgrade" group="system">
 	<name>System - Hikashop Item Custom Field Quantity Handler Plugin by BrainforgeUK</name>
 	<creationDate>July 2020</creationDate>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 	<author>Jonathan Brain</author>
 	<authorEmail>brainforge.uk@btinternet.com</authorEmail>
 	<authorUrl>https://www.brainforge.co.uk</authorUrl>
@@ -28,7 +28,7 @@
 						type="sql"
 						sql_select="field_namekey"
 						sql_from="#__hikashop_field"
-						sql_where="field_table='item' AND field_type IN ('text', 'radio', 'singledropdown')"
+						sql_where="field_table='item' AND field_type IN ('plg.bfnumber', 'radio', 'singledropdown', 'text')"
 						sql_order="field_namekey"
 						key_field="field_namekey"
 						value_field="field_namekey"
@@ -39,13 +39,26 @@
 						description="PLG_SYSTEM_BFHIKASHOPITEMQTYFIELD_FIELDNAMEKEYS_DESC"
 				>
 				</field>
+
+				<field
+						name="decimalpoint"
+						type="list"
+						default="."
+						label="PLG_SYSTEM_BFHIKASHOPITEMQTYFIELD_DECIMALPOINT_TITLE"
+						description="PLG_SYSTEM_BFHIKASHOPITEMQTYFIELD_DECIMALPOINT_DESC">
+					<option value=".">PLG_SYSTEM_BFHIKASHOPITEMQTYFIELD_DOT_OPTION</option>
+					<option value=",">PLG_SYSTEM_BFHIKASHOPITEMQTYFIELD_COMMA_OPTION</option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>
 
 
 	<updateservers>
-		<server type="extension" priority="1" name="PLG_BF_MANUAL">
+		<server
+				type="extension"
+				priority="1"
+				name="PLG_SYSTEM_BFHIKASHOPITEMQTYFIELD">
 			https://brainforge.co.uk/component/bfupdater?element=plg_system_bfhikashopitemqtyfield.xml
 		</server>
 	</updateservers>

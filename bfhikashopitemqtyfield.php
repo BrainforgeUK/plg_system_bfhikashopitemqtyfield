@@ -13,11 +13,13 @@ defined('_JEXEC') or die('Restricted access');
 class Plgsystembfhikashopitemqtyfield extends CMSPlugin
 {
 	public static $fieldnamekeys;
+	public static $_decimalpoint = null;
 
 	public function __construct(&$subject, $config) {
 		parent::__construct($subject, $config);
 
 		Plgsystembfhikashopitemqtyfield::$fieldnamekeys = $this->params->get('fieldnamekeys');
+		Plgsystembfhikashopitemqtyfield::$_decimalpoint = $this->params->get('decimalpoint', '.');
 	}
 
 	public static function getItemQuantity($product, $quantity)
@@ -28,12 +30,23 @@ class Plgsystembfhikashopitemqtyfield extends CMSPlugin
 			{
 				if (!empty($product->$fieldnamekey))
 				{
-					return $quantity * $product->$fieldnamekey;
+					$value = $product->$fieldnamekey;
+					if (Plgsystembfhikashopitemqtyfield::$_decimalpoint != '.')
+					{
+						$value = str_replace(Plgsystembfhikashopitemqtyfield::$_decimalpoint, '.', $value);
+					}
+
+					return $quantity * $value;
 				}
 			}
 		}
 
 		return $quantity;
+	}
+
+	public static function getDecimalPoint()
+	{
+		return self::$_decimalpoint;
 	}
 }
 
